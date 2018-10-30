@@ -1,28 +1,14 @@
-import React, { Component, PropTypes } from "react";
+import { connect } from "react-redux";
+import AddMessageComponent from "../components/AddMessage";
+import { addMessage } from "../Actions";
 
-const AddMessage = props => {
-  let input;
+const mapDispatchToProps = dispatch => ({
+  dispatch: (message, author) => {
+    dispatch(addMessage(message, author));
+  }
+});
 
-  return (
-    <section id="new-message">
-      <input
-        onKeyPress={e => {
-          if (e.key === "Enter") {
-            props.dispatch(input.value, "Me");
-            input.value = "";
-          }
-        }}
-        type="text"
-        ref={node => {
-          input = node;
-        }}
-      />
-    </section>
-  );
-};
-
-AddMessage.PropTypes = {
-  dispatch: PropTypes.func.isRequired
-};
-
-export default AddMessage;
+export const AddMessage = connect(
+  () => ({}),
+  mapDispatchToProps
+)(AddMessageComponent);
